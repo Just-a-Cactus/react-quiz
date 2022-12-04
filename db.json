@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "question": "What geometric figure has no corners?",
+      "answers": ["square","rectangle","circle","triangle"],
+      "correctAnswer": "circle"
+    },
+    {
+      "question": "Natasha has 2 kg of candy in her briefcase, and Karina has 2 kg of cotton wool in her briefcase. Which of the girls is more difficult to carry a briefcase?",
+      "answers": ["Natasha","Karina","the same for both","girls do not exist in reality"],
+      "correctAnswer": "the same for both"
+    },
+    {
+      "question": "How many eyes have seen the turnip from the fairy tale of the same name?",
+      "answers": ["6 eyes","10 eyes","8 eyes","12 eyes"],
+      "correctAnswer": "12 eyes"
+    },
+    {
+      "question": "What two numbers when multiplied by each other and when added to each other give the same result?",
+      "answers": ["4 and 2","3 and 6","2 and 2","5 and 5"],
+      "correctAnswer": "2 and 2"
+    },
+    {
+      "question": "In what case does the number \"1\" mean \"5\"?",
+      "answers": ["when the minute hand of the clock shows \"five minutes\" (stands on the number \"1\")","at school in class","in a kindergarten during preschool classes","in movies"],
+      "correctAnswer": "when the minute hand of the clock shows \"five minutes\" (stands on the number \"1\")"
+    },
+    {
+      "question": "On the holiday, the children were served a chocolate roll. There are 10 children at the table, how many cuts do you need to make so that everyone has enough for a piece?",
+      "answers": ["8","9","10","11"],
+      "correctAnswer": "9"
+    },
+    {
+      "question": "15 students in the class wrote the test for 45 minutes. How much time did each student spend on the test?",
+      "answers": ["3 minutes","60 minutes","30 minutes","45 minutes"],
+      "correctAnswer": "45 minutes"
+    },
+    {
+      "question": "6 horses in a team galloped the way after 4 hours. How far did each horse galloped?",
+      "answers": ["10 hours","4 hours","24 hours","2 hours"],
+      "correctAnswer": "4 hours"
+    },
+    {
+      "question": "There were 5 pears and 5 apples in the vase. The girl took 2 oranges, how many fruits are left in the vase?",
+      "answers": ["5 pears and 3 apples","3 pears and 5 apples","5 pears and 5 apples","4 pears and 4 apples"],
+      "correctAnswer": "5 pears and 5 apples"
+    },
+    {
+      "question": "There are fruits in the vase. There are much more oranges than bananas and slightly less than plums. What fruits are the most in the vase?",
+      "answers": ["oranges","bananas","plums","apples"],
+      "correctAnswer": ""
+    },
+    {
+      "question": "Children came to the holiday. The cake was cut into 4 equal parts, and then each part was cut in half. Everyone got a piece. How many children were there at the holiday?",
+      "answers": ["four","six","eight","ten"],
+      "correctAnswer": "eight"
+    },
+    {
+      "question": "How many robbers did Ali Baba meet?",
+      "answers": ["10","20","30","40"],
+      "correctAnswer": "40"
+    }
+  ]
+}
