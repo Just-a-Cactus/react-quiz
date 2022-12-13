@@ -7,7 +7,7 @@
     },
     {
       "question": "Natasha has 2 kg of candy in her briefcase, and Karina has 2 kg of cotton wool in her briefcase. Which of the girls is more difficult to carry a briefcase?",
-      "answers": ["Natasha","Karina","the same for both","girls do not exist in reality"],
+      "answers": ["Natasha","Karina","the same for both","girls do not exist"],
       "correctAnswer": "the same for both"
     },
     {
@@ -21,9 +21,9 @@
       "correctAnswer": "2 and 2"
     },
     {
-      "question": "In what case does the number \"1\" mean \"5\"?",
-      "answers": ["when the minute hand of the clock shows \"five minutes\" (stands on the number \"1\")","at school in class","in a kindergarten during preschool classes","in movies"],
-      "correctAnswer": "when the minute hand of the clock shows \"five minutes\" (stands on the number \"1\")"
+      "question": "What Masha was baking at the bear in the forest",
+      "answers": ["pizza","a cake","pies","bread"],
+      "correctAnswer": "pies"
     },
     {
       "question": "On the holiday, the children were served a chocolate roll. There are 10 children at the table, how many cuts do you need to make so that everyone has enough for a piece?",
@@ -48,7 +48,7 @@
     {
       "question": "There are fruits in the vase. There are much more oranges than bananas and slightly less than plums. What fruits are the most in the vase?",
       "answers": ["oranges","bananas","plums","apples"],
-      "correctAnswer": ""
+      "correctAnswer": "plums"
     },
     {
       "question": "Children came to the holiday. The cake was cut into 4 equal parts, and then each part was cut in half. Everyone got a piece. How many children were there at the holiday?",
@@ -60,5 +60,19 @@
       "answers": ["10","20","30","40"],
       "correctAnswer": "40"
     }
+  ],
+  "money": [
+    "500",
+    "1000",
+    "2000",
+    "4000",
+    "8000",
+    "16000",
+    "32000",
+    "64000",
+    "125000",
+    "250000",
+    "500000",
+    "1000000"
   ]
 }

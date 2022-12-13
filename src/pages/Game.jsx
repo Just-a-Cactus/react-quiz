@@ -1,34 +1,45 @@
-import { Container, Grid, Typography } from "@mui/material";
-import AnswersBlock from "../components/UI/molecules/AnswersBlock";
-import AnswerButton from "../components/UI/atoms/AnswerButton";
+import { Container, Grid } from "@mui/material";
 import RewardList from "../components/UI/molecules/RewardList";
-import LabelButton from "../components/UI/atoms/LabelButton";
 import styled from "styled-components";
+import QuestionAndAnswersBlock from "../components/UI/organism/QuestionAndAnswersBlock";
 
-const Game = () => {
+const Game = ({
+  buildScoreTitle,
+  questions,
+  money,
+  index,
+  setIndex,
+  setOnScreen,
+}) => {
+  const answerClick = (e) => {
+    if (e.target.id === questions[index].correctAnswer) {
+      setIndex(index + 1);
+      if (index === questions.length - 1) setOnScreen("end");
+    } else {
+      setOnScreen("end");
+    }
+  };
+
   return (
     <StyledContainer fixed maxWidth={"xl"} disableGutters>
       <StyledGame container>
         <StyledLeftGrid item xs={12} xl={8}>
-          <StyledTypographyWrapper item xs={12} xl={9}>
-            <StyledTypography component="h1">
-              How old your elder brother was 10 years before you was born, mate?
-            </StyledTypography>
-          </StyledTypographyWrapper>
-          <Container maxWidth="xs*2" disableGutters>
-            <AnswersBlock>
-              <AnswerButton
-                letter={"A"}
-                state={"wrong"}
-                title={"test_Question"}
-              ></AnswerButton>
-            </AnswersBlock>
-          </Container>
+          {questions && (
+            <QuestionAndAnswersBlock
+              question={questions[index].question}
+              answers={questions[index].answers}
+              answerClick={answerClick}
+            />
+          )}
         </StyledLeftGrid>
-        <StyledRightGrid item xl={4}>
-          <RewardList>
-            <LabelButton title={"$1,000"} />
-          </RewardList>
+        <StyledRightGrid item>
+          {money && (
+            <RewardList
+              money={money}
+              index={index}
+              buildScoreTitle={buildScoreTitle}
+            />
+          )}
         </StyledRightGrid>
       </StyledGame>
     </StyledContainer>
@@ -41,21 +52,8 @@ const StyledContainer = styled(Container)`
   }
 `;
 
-const StyledTypographyWrapper = styled(Grid)`
-  @media print, screen and (max-width: 320px) {
-    padding-left: 16px;
-    padding-right: 16px;
-    text-align: center;
-  }
-`;
-
-const StyledTypography = styled(Typography)`
-  font-weight: 600;
-  font-size: 18px;
-
-  @media print, screen and (min-width: 1440px) {
-    font-size: 32px;
-  }
+const StyledGame = styled(Grid)`
+  height: 100vh;
 `;
 
 const StyledLeftGrid = styled(Grid)`
@@ -73,16 +71,15 @@ const StyledLeftGrid = styled(Grid)`
 `;
 
 const StyledRightGrid = styled(Grid)`
+  margin-left: 77px;
+  max-width: 376px;
+  background: white;
   display: none;
   @media print, screen and (min-width: 1440px) {
     display: flex;
   }
   flex-direction: column;
   justify-content: center;
-`;
-
-const StyledGame = styled(Grid)`
-  height: 100vh;
 `;
 
 export default Game;

@@ -37,7 +37,7 @@ const theme = createTheme({
       textColor: black100,
       letterColor: orange100,
       inactiveBorder: black40,
-      inactiveBG: "transparent",
+      inactiveBG: white100,
       selectedBorder: orange100,
       selectedBG: orange5,
       correctBorder: green100,
@@ -45,17 +45,13 @@ const theme = createTheme({
       wrongBorder: red100,
       wrongBG: red5,
       hoverBorder: orange100,
-      hoverBG: "transparent",
+      hoverBG: white100,
     },
     labelButtons: {
-      background: "transparent",
+      background: white100,
       defaultTextColor: black100,
       active: orange100,
       inactive: black40,
-    },
-    burger: {
-      bgColor: white100,
-      buttons: black100,
     },
   },
   breakpoints: {
