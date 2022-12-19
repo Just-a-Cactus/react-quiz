@@ -4,7 +4,7 @@ import hand from ".././assets/img/hand.png";
 import Button from "../components/UI/atoms/Button";
 import theme from "../components/UI/theme/theme";
 
-const EndGame = () => {
+const EndGame = ({ prise = 0, setIndex, setOnScreen, buildScoreTitle }) => {
   return (
     <StyledContainer fixed maxWidth={"xl"} disableGutters>
       <StyledStart container>
@@ -14,9 +14,18 @@ const EndGame = () => {
         <StyledRightGrid item xs={12} xl={5}>
           <Container>
             <StyledSubtitle component="p">Total score:</StyledSubtitle>
-            <StyledTypography component="h1">$8,000 earned</StyledTypography>
+            <StyledTypography component="h1">
+              {buildScoreTitle(prise)} earned
+            </StyledTypography>
           </Container>
-          <Button disableRipple variant="contained">
+          <Button
+            disableRipple
+            variant="contained"
+            onClick={() => {
+              setOnScreen("start");
+              setIndex(0);
+            }}
+          >
             Try again
           </Button>
         </StyledRightGrid>

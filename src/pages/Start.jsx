@@ -3,7 +3,7 @@ import styled from "styled-components";
 import hand from ".././assets/img/hand.png";
 import Button from "../components/UI/atoms/Button";
 
-const Start = () => {
+const Start = ({ setOnScreen }) => {
   return (
     <StyledContainer fixed maxWidth={"xl"} disableGutters>
       <StyledStart container>
@@ -16,7 +16,11 @@ const Start = () => {
               Who wants to be a millionaire?
             </StyledTypography>
           </Container>
-          <Button disableRipple variant="contained">
+          <Button
+            disableRipple
+            variant="contained"
+            onClick={() => setOnScreen("game")}
+          >
             Start
           </Button>
         </StyledRightGrid>

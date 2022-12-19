@@ -1,24 +1,21 @@
 import styled from "styled-components";
 import { Grid } from "@mui/material";
+import LabelButton from "../atoms/LabelButton";
 
-const RewardList = ({ children, ...props }) => {
+const RewardList = ({ money, index, buildScoreTitle = null, ...props }) => {
   return (
-    <Grid {...props}>
-      <StyledGrid container>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-        <Grid item>{children}</Grid>
-      </StyledGrid>
-    </Grid>
+    <StyledGrid container {...props}>
+      {money
+        ?.map((el, key) => (
+          <Grid item key={key}>
+            <LabelButton
+              title={buildScoreTitle && buildScoreTitle(el)}
+              type={key === index ? "active" : key > index ? null : "disabled"}
+            />
+          </Grid>
+        ))
+        .reverse()}
+    </StyledGrid>
   );
 };
 
