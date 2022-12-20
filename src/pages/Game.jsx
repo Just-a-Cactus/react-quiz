@@ -2,6 +2,7 @@ import { Container, Grid } from "@mui/material";
 import RewardList from "../components/UI/molecules/RewardList";
 import styled from "styled-components";
 import QuestionAndAnswersBlock from "../components/UI/organism/QuestionAndAnswersBlock";
+import { useState } from "react";
 
 const Game = ({
   buildScoreTitle,
@@ -11,13 +12,39 @@ const Game = ({
   setIndex,
   setOnScreen,
 }) => {
-  const answerClick = (e) => {
+  const [types, setTypes] = useState([
+    "inactive",
+    "inactive",
+    "inactive",
+    "inactive",
+  ]);
+
+  const colorizeCorrectAnswer = () => {
+    const newType = types.map((el, key) =>
+      questions[index].correctAnswer === questions[index].answers[key]
+        ? "correct"
+        : "wrong"
+    );
+    setTypes(newType);
+  };
+
+  const goToNextQuestion = (e) => {
+    setTypes(["inactive", "inactive", "inactive", "inactive"]);
     if (e.target.id === questions[index].correctAnswer) {
       setIndex(index + 1);
       if (index === questions.length - 1) setOnScreen("end");
     } else {
       setOnScreen("end");
     }
+  };
+
+  const answerClick = (e) => {
+    const modifiedTypes = questions[index].answers.map((answer) =>
+      answer === e.target.id ? "selected" : "test"
+    );
+    setTypes(modifiedTypes);
+    setTimeout(colorizeCorrectAnswer, 500);
+    setTimeout(() => goToNextQuestion(e), 1500);
   };
 
   return (
@@ -28,6 +55,7 @@ const Game = ({
             <QuestionAndAnswersBlock
               question={questions[index].question}
               answers={questions[index].answers}
+              types={types}
               answerClick={answerClick}
             />
           )}

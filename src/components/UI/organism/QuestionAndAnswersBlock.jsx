@@ -1,14 +1,18 @@
 import AnswersBlock from "../molecules/AnswersBlock";
 import { Container, Grid, Typography } from "@mui/material";
 import styled from "styled-components";
-const QuestionAndAnswersBlock = ({ answerClick, question, answers }) => {
+const QuestionAndAnswersBlock = ({ answerClick, question, answers, types }) => {
   return (
     <>
       <StyledTypographyWrapper item xs={12} xl={9}>
         <StyledTypography component="h1">{question}</StyledTypography>
       </StyledTypographyWrapper>
       <Container maxWidth="xs*2" disableGutters>
-        <AnswersBlock answerClick={answerClick} answers={answers} />
+        <AnswersBlock
+          answerClick={answerClick}
+          answers={answers}
+          types={types}
+        />
       </Container>
     </>
   );

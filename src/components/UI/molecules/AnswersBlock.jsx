@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import AnswerButton from "../atoms/AnswerButton";
 
 //...props - mui def props
-const AnswersBlock = ({ answerClick, answers }) => {
+const AnswersBlock = ({ answerClick, answers, types }) => {
   const letters = ["A", "B", "C", "D"];
   return (
     <StyledGrid container rowSpacing={5}>
@@ -12,7 +12,7 @@ const AnswersBlock = ({ answerClick, answers }) => {
           <Grid item key={key}>
             <AnswerButton
               letter={letters[key]}
-              type={"inactive"}
+              type={types[key]}
               title={el}
               id={el}
               onClick={answerClick}
