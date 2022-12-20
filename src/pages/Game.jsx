@@ -48,7 +48,7 @@ const Game = ({
   };
 
   return (
-    <StyledContainer fixed maxWidth={"xl"} disableGutters>
+    <StyledContainer fixed maxWidth="xl" disableGutters>
       <StyledGame container>
         <StyledLeftGrid item xs={12} xl={8}>
           {questions && (

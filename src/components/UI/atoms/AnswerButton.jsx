@@ -14,7 +14,7 @@ const AnswerButton = ({ letter, title, type, ...props }) => (
         stroke="currentStroke"
       />
     </svg>
-    <div className={"innerText"}>
+    <div className="innerText">
       <p>{letter}.</p>
       <p>{title}</p>
     </div>
