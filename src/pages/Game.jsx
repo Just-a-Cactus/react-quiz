@@ -2,6 +2,7 @@ import { Container, Grid } from "@mui/material";
 import RewardList from "../components/UI/molecules/RewardList";
 import styled from "styled-components";
 import QuestionAndAnswersBlock from "../components/UI/organism/QuestionAndAnswersBlock";
+import { useEffect, useState } from "react";
 
 const Game = ({
   buildScoreTitle,
@@ -11,13 +12,50 @@ const Game = ({
   setIndex,
   setOnScreen,
 }) => {
-  const answerClick = (e) => {
+  const [types, setTypes] = useState([
+    "inactive",
+    "inactive",
+    "inactive",
+    "inactive",
+  ]);
+
+  useEffect(() => {
+    console.log(types);
+  }, [types]);
+
+  const colorizeCorrect = () => {
+    const newType = types.map((el, key) =>
+      questions[index].correctAnswer === questions[index].answers[key]
+        ? "correct"
+        : "wrong"
+    );
+    setTypes(newType);
+  };
+
+  const next = (e) => {
     if (e.target.id === questions[index].correctAnswer) {
       setIndex(index + 1);
       if (index === questions.length - 1) setOnScreen("end");
     } else {
       setOnScreen("end");
     }
+  };
+
+  const answerClick = (e) => {
+    const modifiedTypes = questions[index].answers.map((answer, indx) =>
+      answer === e.target.id ? "selected" : "inactive"
+    );
+
+    // console.log("modifiedTypes: ", modifiedTypes);
+
+    setTypes(modifiedTypes);
+    // setTypes(["inactive", "inactive", "inactive", "inactive"]);
+    // console.log("setTypes(modifiedTypes): ", types);
+
+    // colorizeCorrect();
+    // console.log("colorizeCorrect: ", types);
+
+    next(e);
   };
 
   return (
@@ -28,6 +66,7 @@ const Game = ({
             <QuestionAndAnswersBlock
               question={questions[index].question}
               answers={questions[index].answers}
+              types={types}
               answerClick={answerClick}
             />
           )}
