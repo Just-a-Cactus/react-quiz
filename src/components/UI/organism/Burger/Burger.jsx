@@ -5,7 +5,7 @@ import RewardList from "../../molecules/RewardList";
 import "./index.css";
 
 const Burger = ({ money, index, buildScoreTitle }) => (
-  <Menu width={"100%"}>
+  <Menu width="100%">
     {money && (
       <RewardList
         money={money}

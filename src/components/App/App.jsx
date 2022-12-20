@@ -52,10 +52,10 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CustomBackground active={onScreen} maxWidth={"xl"} disableGutters>
+      <CustomBackground active={onScreen} maxWidth="xl" disableGutters>
         <Burger
-          pageWrapId={"page-wrap"}
-          outerContainerId={"outer-container"}
+          pageWrapId="page-wrap"
+          outerContainerId="outer-container"
           money={money}
           index={index}
           buildScoreTitle={buildScoreTitle}

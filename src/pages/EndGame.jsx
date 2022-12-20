@@ -6,7 +6,7 @@ import theme from "../components/UI/theme/theme";
 
 const EndGame = ({ prise = 0, setIndex, setOnScreen, buildScoreTitle }) => {
   return (
-    <StyledContainer fixed maxWidth={"xl"} disableGutters>
+    <StyledContainer fixed maxWidth="xl" disableGutters>
       <StyledStart container>
         <StyledLeftGrid item xs={12} xl={6}>
           <img src={hand} alt="hand" />

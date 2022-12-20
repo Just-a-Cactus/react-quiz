@@ -5,7 +5,7 @@ import Button from "../components/UI/atoms/Button";
 
 const Start = ({ setOnScreen }) => {
   return (
-    <StyledContainer fixed maxWidth={"xl"} disableGutters>
+    <StyledContainer fixed maxWidth="xl" disableGutters>
       <StyledStart container>
         <StyledLeftGrid item xs={12} xl={6}>
           <img src={hand} alt="hand" />
