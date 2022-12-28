@@ -3,7 +3,7 @@ import styled from "styled-components";
 import theme from "../theme/theme";
 
 const LabelButton = ({ title, type, ...props }) => (
-  <StyledButton type={type} {...props}>
+  <StyledButton {...props}>
     <svg viewBox="0 0 376 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M69 20H0" stroke="currentStroke" />
       <path d="M376 20H307" stroke="currentStroke" />
@@ -13,7 +13,7 @@ const LabelButton = ({ title, type, ...props }) => (
         stroke="currentStroke"
       />
     </svg>
-    <InnerText>
+    <InnerText type={type}>
       <p>{title}</p>
     </InnerText>
   </StyledButton>

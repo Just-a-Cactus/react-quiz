@@ -2,8 +2,9 @@ import { Container, Grid } from "@mui/material";
 import RewardList from "../components/UI/molecules/RewardList";
 import styled from "styled-components";
 import QuestionAndAnswersBlock from "../components/UI/organism/QuestionAndAnswersBlock";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Burger from "../components/UI/organism/Burger/Burger";
+import { useNavigate } from "react-router-dom";
 
 const Game = ({
   buildScoreTitle,
@@ -11,7 +12,8 @@ const Game = ({
   money,
   index,
   setIndex,
-  setOnScreen,
+  setQuestions,
+  setMoney,
 }) => {
   const [types, setTypes] = useState([
     "inactive",
@@ -19,6 +21,23 @@ const Game = ({
     "inactive",
     "inactive",
   ]);
+
+  async function loadQuestions() {
+    await fetch("http://localhost:4000/questions")
+      .then((response) => response.json())
+      .then((resData) => setQuestions(resData));
+  }
+
+  async function loadMoney() {
+    await fetch("http://localhost:4000/money")
+      .then((response) => response.json())
+      .then((resData) => setMoney(resData));
+  }
+
+  useEffect(() => {
+    loadQuestions();
+    loadMoney();
+  }, []);
 
   const colorizeCorrectAnswer = () => {
     const newType = types.map((el, key) =>
@@ -28,14 +47,15 @@ const Game = ({
     );
     setTypes(newType);
   };
+  const navigate = useNavigate();
 
   const goToNextQuestion = (e) => {
     setTypes(["inactive", "inactive", "inactive", "inactive"]);
     if (e.target.id === questions[index].correctAnswer) {
       setIndex(index + 1);
-      if (index === questions.length - 1) setOnScreen("end");
+      if (index === questions.length - 1) navigate("/results");
     } else {
-      setOnScreen("end");
+      navigate("/results");
     }
   };
 

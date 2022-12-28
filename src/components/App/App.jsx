@@ -5,72 +5,49 @@ import theme from "../UI/theme/theme";
 import Start from "../../pages/Start";
 import Game from "../../pages/Game";
 import EndGame from "../../pages/EndGame";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { buildScoreTitle } from "../../functions/helpers";
 
 function App() {
   const [questions, setQuestions] = useState(null);
   const [money, setMoney] = useState(null);
   const [index, setIndex] = useState(0);
-  const [onScreen, setOnScreen] = useState("start");
-
-  async function loadQuestions() {
-    await fetch("http://localhost:4000/questions")
-      .then((response) => response.json())
-      .then((resData) => setQuestions(resData));
-  }
-
-  async function loadMoney() {
-    await fetch("http://localhost:4000/money")
-      .then((response) => response.json())
-      .then((resData) => setMoney(resData));
-  }
-
-  const buildScoreTitle = (el) => {
-    const currency = "$";
-    switch (el.length) {
-      case 7:
-        return `${
-          currency + el.slice(0, 1) + "," + el.slice(1, 4) + "," + el.slice(-3)
-        }`;
-      case 6:
-        return `${currency + el.slice(0, 3) + "," + el.slice(-3)}`;
-      case 5:
-        return `${currency + el.slice(0, 2) + "," + el.slice(-3)}`;
-      case 4:
-        return `${currency + el.slice(0, 1) + "," + el.slice(-3)}`;
-      default:
-        return `${currency + el}`;
-    }
-  };
-
-  useEffect(() => {
-    loadQuestions();
-    loadMoney();
-  }, []);
+  const location = useLocation();
 
   return (
     <ThemeProvider theme={theme}>
-      <CustomBackground active={onScreen} maxWidth="xl" disableGutters>
-        {onScreen === "start" ? <Start setOnScreen={setOnScreen} /> : null}
-        {onScreen === "game" ? (
-          <Game
-            money={money}
-            questions={questions}
-            index={index}
-            setIndex={setIndex}
-            setOnScreen={setOnScreen}
-            buildScoreTitle={buildScoreTitle}
+      <CustomBackground active={location.pathname} maxWidth="xl" disableGutters>
+        <Routes>
+          <Route path="/" element={<Start setIndex={setIndex} />} />
+          <Route
+            path="/game"
+            element={
+              <Game
+                money={money}
+                setQuestions={setQuestions}
+                setMoney={setMoney}
+                questions={questions}
+                index={index}
+                setIndex={setIndex}
+                buildScoreTitle={buildScoreTitle}
+              />
+            }
           />
-        ) : null}
-        {onScreen === "end" ? (
-          <EndGame
-            prise={money[index - 1]}
-            setIndex={setIndex}
-            setOnScreen={setOnScreen}
-            buildScoreTitle={buildScoreTitle}
+          <Route
+            path="/results"
+            element={
+              <EndGame
+                index={index}
+                money={money}
+                setIndex={setIndex}
+                buildScoreTitle={buildScoreTitle}
+              />
+            }
           />
-        ) : null}
+          <Route path="*" element={<Start />} />
+        </Routes>
       </CustomBackground>
     </ThemeProvider>
   );
@@ -89,7 +66,7 @@ const CustomBackground = styled(Container)`
     ${theme.palette.answerButtons.selectedBG} 50%,
     ${theme.palette.answerButtons.selectedBG} 100%
   );
-  background: ${(props) => (props?.active === "start" ? null : "#F5F5F7")};
+  background: ${(props) => (props?.active === "/" ? null : "#F5F5F7")};
 `;
 
 export default App;
