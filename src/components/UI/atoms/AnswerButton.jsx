@@ -14,12 +14,25 @@ const AnswerButton = ({ letter, title, type, ...props }) => (
         stroke="currentStroke"
       />
     </svg>
-    <div className="innerText">
+    <InnerText className="innerText">
       <p>{letter}.</p>
       <p>{title}</p>
-    </div>
+    </InnerText>
   </StyledButton>
 );
+
+const InnerText = styled.div`
+  color: ${theme.palette.answerButtons.textColor};
+
+  position: absolute;
+  display: flex;
+
+  & :first-child {
+    color: ${theme.palette.answerButtons.letterColor};
+    font-weight: 600;
+    margin-right: 10px;
+  }
+`;
 
 const StyledButton = styled(Button)`
   background: none;
@@ -47,19 +60,6 @@ const StyledButton = styled(Button)`
   &:hover svg {
     fill: ${theme.palette.answerButtons.hoverBG};
     stroke: ${theme.palette.answerButtons.hoverBorder};
-  }
-
-  .innerText {
-    color: ${theme.palette.answerButtons.textColor};
-
-    position: absolute;
-    display: flex;
-
-    & :first-child {
-      color: ${theme.palette.answerButtons.letterColor};
-      font-weight: 600;
-      margin-right: 10px;
-    }
   }
 
   svg {

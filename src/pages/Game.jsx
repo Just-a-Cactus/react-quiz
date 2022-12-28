@@ -3,6 +3,7 @@ import RewardList from "../components/UI/molecules/RewardList";
 import styled from "styled-components";
 import QuestionAndAnswersBlock from "../components/UI/organism/QuestionAndAnswersBlock";
 import { useState } from "react";
+import Burger from "../components/UI/organism/Burger/Burger";
 
 const Game = ({
   buildScoreTitle,
@@ -48,29 +49,38 @@ const Game = ({
   };
 
   return (
-    <StyledContainer fixed maxWidth="xl" disableGutters>
-      <StyledGame container>
-        <StyledLeftGrid item xs={12} xl={8}>
-          {questions && (
-            <QuestionAndAnswersBlock
-              question={questions[index].question}
-              answers={questions[index].answers}
-              types={types}
-              answerClick={answerClick}
-            />
-          )}
-        </StyledLeftGrid>
-        <StyledRightGrid item>
-          {money && (
-            <RewardList
-              money={money}
-              index={index}
-              buildScoreTitle={buildScoreTitle}
-            />
-          )}
-        </StyledRightGrid>
-      </StyledGame>
-    </StyledContainer>
+    <>
+      <Burger
+        pageWrapId="page-wrap"
+        outerContainerId="outer-container"
+        money={money}
+        index={index}
+        buildScoreTitle={buildScoreTitle}
+      />
+      <StyledContainer fixed maxWidth="xl" disableGutters>
+        <StyledGame container>
+          <StyledLeftGrid item xs={12} xl={8}>
+            {questions && (
+              <QuestionAndAnswersBlock
+                question={questions[index].question}
+                answers={questions[index].answers}
+                types={types}
+                answerClick={answerClick}
+              />
+            )}
+          </StyledLeftGrid>
+          <StyledRightGrid item>
+            {money && (
+              <RewardList
+                money={money}
+                index={index}
+                buildScoreTitle={buildScoreTitle}
+              />
+            )}
+          </StyledRightGrid>
+        </StyledGame>
+      </StyledContainer>
+    </>
   );
 };
 

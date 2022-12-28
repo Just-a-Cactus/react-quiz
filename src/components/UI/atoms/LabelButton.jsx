@@ -13,11 +13,26 @@ const LabelButton = ({ title, type, ...props }) => (
         stroke="currentStroke"
       />
     </svg>
-    <div className="innerText">
+    <InnerText>
       <p>{title}</p>
-    </div>
+    </InnerText>
   </StyledButton>
 );
+
+const InnerText = styled.div`
+  position: absolute;
+
+  color: ${(props) => {
+    switch (props.type?.toLowerCase()) {
+      case "active":
+        return theme.palette.labelButtons.active;
+      case "disabled":
+        return theme.palette.labelButtons.inactive;
+      default:
+        return theme.palette.labelButtons.defaultTextColor;
+    }
+  }};
+`;
 
 const StyledButton = styled(Button)`
   width: 100%;
@@ -31,21 +46,6 @@ const StyledButton = styled(Button)`
     @media print, screen and (min-width: 1440px) {
       height: 40px;
     }
-  }
-
-  .innerText {
-    position: absolute;
-
-    color: ${(props) => {
-      switch (props.type?.toLowerCase()) {
-        case "active":
-          return theme.palette.labelButtons.active;
-        case "disabled":
-          return theme.palette.labelButtons.inactive;
-        default:
-          return theme.palette.labelButtons.defaultTextColor;
-      }
-    }};
   }
 
   svg {

@@ -5,7 +5,6 @@ import theme from "../UI/theme/theme";
 import Start from "../../pages/Start";
 import Game from "../../pages/Game";
 import EndGame from "../../pages/EndGame";
-import Burger from "../UI/organism/Burger/Burger";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -53,13 +52,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CustomBackground active={onScreen} maxWidth="xl" disableGutters>
-        <Burger
-          pageWrapId="page-wrap"
-          outerContainerId="outer-container"
-          money={money}
-          index={index}
-          buildScoreTitle={buildScoreTitle}
-        />
         {onScreen === "start" ? <Start setOnScreen={setOnScreen} /> : null}
         {onScreen === "game" ? (
           <Game
