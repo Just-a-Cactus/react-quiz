@@ -2,6 +2,7 @@ import { Container, Grid, Typography } from "@mui/material";
 import styled from "styled-components";
 import hand from ".././assets/img/hand.png";
 import Button from "../components/UI/atoms/Button";
+import ROUTES from "../routes";
 
 const Start = () => {
   return (
@@ -16,7 +17,12 @@ const Start = () => {
               Who wants to be a millionaire?
             </StyledTypography>
           </Container>
-          <Button disableRipple variant="contained" to="/game" text="Start" />
+          <Button
+            disableRipple
+            variant="contained"
+            to={ROUTES.GAME}
+            text="Start"
+          />
         </StyledRightGrid>
       </StyledStart>
     </StyledContainer>

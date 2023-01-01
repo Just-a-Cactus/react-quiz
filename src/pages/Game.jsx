@@ -14,6 +14,8 @@ const Game = ({
   setIndex,
   setQuestions,
   setMoney,
+  setLoading,
+  loading,
 }) => {
   const [types, setTypes] = useState([
     "inactive",
@@ -23,15 +25,23 @@ const Game = ({
   ]);
 
   async function loadQuestions() {
+    setLoading(true);
     await fetch("http://localhost:4000/questions")
       .then((response) => response.json())
-      .then((resData) => setQuestions(resData));
+      .then((resData) => {
+        setQuestions(resData);
+        setLoading(false);
+      });
   }
 
   async function loadMoney() {
+    setLoading(true);
     await fetch("http://localhost:4000/money")
       .then((response) => response.json())
-      .then((resData) => setMoney(resData));
+      .then((resData) => {
+        setMoney(resData);
+        setLoading(false);
+      });
   }
 
   useEffect(() => {
@@ -67,6 +77,13 @@ const Game = ({
     setTimeout(colorizeCorrectAnswer, 500);
     setTimeout(() => goToNextQuestion(e), 1500);
   };
+
+  if (loading)
+    return (
+      <StyledLoading>
+        <p>Loading...</p>
+      </StyledLoading>
+    );
 
   return (
     <>
@@ -108,6 +125,13 @@ const StyledContainer = styled(Container)`
   @media print, screen and (min-width: 1440px) {
     padding-left: 80px;
   }
+`;
+
+const StyledLoading = styled(StyledContainer)`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const StyledGame = styled(Grid)`

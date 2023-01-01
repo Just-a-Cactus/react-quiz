@@ -6,14 +6,21 @@ const RewardList = ({ money, index, buildScoreTitle = null, ...props }) => {
   return (
     <StyledGrid container {...props}>
       {money
-        ?.map((el, key) => (
-          <Grid item key={key}>
-            <LabelButton
-              title={buildScoreTitle && buildScoreTitle(el)}
-              type={key === index ? "active" : key > index ? null : "disabled"}
-            />
-          </Grid>
-        ))
+        ?.map((el, key) => {
+          let type;
+          if (key === index) type = "active";
+          else if (key > index) type = null;
+          else type = "disabled";
+
+          return (
+            <Grid item key={key}>
+              <LabelButton
+                title={buildScoreTitle && buildScoreTitle(el)}
+                type={type}
+              />
+            </Grid>
+          );
+        })
         .reverse()}
     </StyledGrid>
   );
