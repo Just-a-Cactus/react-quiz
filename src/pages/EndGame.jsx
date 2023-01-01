@@ -4,7 +4,9 @@ import hand from ".././assets/img/hand.png";
 import Button from "../components/UI/atoms/Button";
 import theme from "../components/UI/theme/theme";
 
-const EndGame = ({ prise = 0, setIndex, setOnScreen, buildScoreTitle }) => {
+const EndGame = ({ setIndex, index, money, buildScoreTitle }) => {
+  const prise = index > 0 ? money[index - 1] : 0;
+
   return (
     <StyledContainer fixed maxWidth="xl" disableGutters>
       <StyledStart container>
@@ -21,13 +23,10 @@ const EndGame = ({ prise = 0, setIndex, setOnScreen, buildScoreTitle }) => {
           <Button
             disableRipple
             variant="contained"
-            onClick={() => {
-              setOnScreen("start");
-              setIndex(0);
-            }}
-          >
-            Try again
-          </Button>
+            to="/"
+            text="Try again"
+            onClick={() => setIndex(0)}
+          />
         </StyledRightGrid>
       </StyledStart>
     </StyledContainer>
