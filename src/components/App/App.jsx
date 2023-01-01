@@ -9,46 +9,60 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { buildScoreTitle } from "../../functions/helpers";
+import ErrorBoundary from "../ErrorBoundary";
+import ROUTES from "../../routes";
 
 function App() {
   const [questions, setQuestions] = useState(null);
   const [money, setMoney] = useState(null);
   const [index, setIndex] = useState(0);
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
-      <CustomBackground active={location.pathname} maxWidth="xl" disableGutters>
-        <Routes>
-          <Route path="/" element={<Start setIndex={setIndex} />} />
-          <Route
-            path="/game"
-            element={
-              <Game
-                money={money}
-                setQuestions={setQuestions}
-                setMoney={setMoney}
-                questions={questions}
-                index={index}
-                setIndex={setIndex}
-                buildScoreTitle={buildScoreTitle}
-              />
-            }
-          />
-          <Route
-            path="/results"
-            element={
-              <EndGame
-                index={index}
-                money={money}
-                setIndex={setIndex}
-                buildScoreTitle={buildScoreTitle}
-              />
-            }
-          />
-          <Route path="*" element={<Start />} />
-        </Routes>
-      </CustomBackground>
+      <ErrorBoundary>
+        <CustomBackground
+          active={location.pathname}
+          maxWidth="xl"
+          disableGutters
+        >
+          <Routes>
+            <Route
+              path={ROUTES.START}
+              element={<Start setIndex={setIndex} />}
+            />
+            <Route
+              path={ROUTES.GAME}
+              element={
+                <Game
+                  setLoading={setLoading}
+                  loading={loading}
+                  money={money}
+                  setQuestions={setQuestions}
+                  setMoney={setMoney}
+                  questions={questions}
+                  index={index}
+                  setIndex={setIndex}
+                  buildScoreTitle={buildScoreTitle}
+                />
+              }
+            />
+            <Route
+              path={ROUTES.RESULTS}
+              element={
+                <EndGame
+                  index={index}
+                  money={money}
+                  setIndex={setIndex}
+                  buildScoreTitle={buildScoreTitle}
+                />
+              }
+            />
+            <Route path={ROUTES.NOT_FOUND} element={<Start />} />
+          </Routes>
+        </CustomBackground>
+      </ErrorBoundary>
     </ThemeProvider>
   );
 }

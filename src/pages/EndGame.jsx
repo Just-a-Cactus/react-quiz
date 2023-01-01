@@ -3,6 +3,7 @@ import styled from "styled-components";
 import hand from ".././assets/img/hand.png";
 import Button from "../components/UI/atoms/Button";
 import theme from "../components/UI/theme/theme";
+import ROUTES from "../routes";
 
 const EndGame = ({ setIndex, index, money, buildScoreTitle }) => {
   const prise = index > 0 ? money[index - 1] : 0;
@@ -23,7 +24,7 @@ const EndGame = ({ setIndex, index, money, buildScoreTitle }) => {
           <Button
             disableRipple
             variant="contained"
-            to="/"
+            to={ROUTES.START}
             text="Try again"
             onClick={() => setIndex(0)}
           />
