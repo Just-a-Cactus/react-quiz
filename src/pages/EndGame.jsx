@@ -4,9 +4,14 @@ import hand from ".././assets/img/hand.png";
 import Button from "../components/UI/atoms/Button";
 import theme from "../components/UI/theme/theme";
 import ROUTES from "../routes";
+import { useSelector } from "react-redux";
+import actions from "../redux/actions/actions";
+import { buildScoreTitle } from "../functions/helpers";
 
-const EndGame = ({ setIndex, index, money, buildScoreTitle }) => {
-  const prise = index > 0 ? money[index - 1] : 0;
+const EndGame = () => {
+  const state = useSelector((state) => state);
+
+  const prise = state.index > 0 ? state.money[state.index - 1] : 0;
 
   return (
     <StyledContainer fixed maxWidth="xl" disableGutters>
@@ -26,7 +31,7 @@ const EndGame = ({ setIndex, index, money, buildScoreTitle }) => {
             variant="contained"
             to={ROUTES.START}
             text="Try again"
-            onClick={() => setIndex(0)}
+            onClick={() => actions.setIndex(0)}
           />
         </StyledRightGrid>
       </StyledStart>

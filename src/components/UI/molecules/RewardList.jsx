@@ -1,23 +1,24 @@
 import styled from "styled-components";
 import { Grid } from "@mui/material";
 import LabelButton from "../atoms/LabelButton";
+import { useSelector } from "react-redux";
+import { buildScoreTitle } from "../../../functions/helpers";
 
-const RewardList = ({ money, index, buildScoreTitle = null, ...props }) => {
+const RewardList = ({ ...props }) => {
+  const state = useSelector((state) => state);
+
   return (
     <StyledGrid container {...props}>
-      {money
+      {state.money
         ?.map((el, key) => {
           let type;
-          if (key === index) type = "active";
-          else if (key > index) type = null;
+          if (key === state.index) type = "active";
+          else if (key > state.index) type = null;
           else type = "disabled";
 
           return (
             <Grid item key={key}>
-              <LabelButton
-                title={buildScoreTitle && buildScoreTitle(el)}
-                type={type}
-              />
+              <LabelButton title={buildScoreTitle(el)} type={type} />
             </Grid>
           );
         })

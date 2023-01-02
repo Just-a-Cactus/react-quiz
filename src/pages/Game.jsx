@@ -5,18 +5,11 @@ import QuestionAndAnswersBlock from "../components/UI/organism/QuestionAndAnswer
 import { useEffect, useState } from "react";
 import Burger from "../components/UI/organism/Burger/Burger";
 import { useNavigate } from "react-router-dom";
+import actions from "../redux/actions/actions";
+import { useSelector } from "react-redux";
+import ROUTES from "../routes";
 
-const Game = ({
-  buildScoreTitle,
-  questions,
-  money,
-  index,
-  setIndex,
-  setQuestions,
-  setMoney,
-  setLoading,
-  loading,
-}) => {
+const Game = () => {
   const [types, setTypes] = useState([
     "inactive",
     "inactive",
@@ -24,23 +17,25 @@ const Game = ({
     "inactive",
   ]);
 
+  const state = useSelector((state) => state);
+
   async function loadQuestions() {
-    setLoading(true);
+    actions.setLoading(true);
     await fetch("http://localhost:4000/questions")
       .then((response) => response.json())
       .then((resData) => {
-        setQuestions(resData);
-        setLoading(false);
+        actions.setQuestions(resData);
+        actions.setLoading(false);
       });
   }
 
   async function loadMoney() {
-    setLoading(true);
+    actions.setLoading(true);
     await fetch("http://localhost:4000/money")
       .then((response) => response.json())
       .then((resData) => {
-        setMoney(resData);
-        setLoading(false);
+        actions.setMoney(resData);
+        actions.setLoading(false);
       });
   }
 
@@ -49,28 +44,30 @@ const Game = ({
     loadMoney();
   }, []);
 
+  const navigate = useNavigate();
+
   const colorizeCorrectAnswer = () => {
     const newType = types.map((el, key) =>
-      questions[index].correctAnswer === questions[index].answers[key]
+      state.questions[state.index].correctAnswer ===
+      state.questions[state.index].answers[key]
         ? "correct"
         : "wrong"
     );
     setTypes(newType);
   };
-  const navigate = useNavigate();
 
   const goToNextQuestion = (e) => {
     setTypes(["inactive", "inactive", "inactive", "inactive"]);
-    if (e.target.id === questions[index].correctAnswer) {
-      setIndex(index + 1);
-      if (index === questions.length - 1) navigate("/results");
+    if (e.target.id === state.questions[state.index].correctAnswer) {
+      actions.setIndex(state.index + 1);
+      if (state.index === state.questions.length - 1) navigate(ROUTES.RESULTS);
     } else {
-      navigate("/results");
+      navigate(ROUTES.RESULTS);
     }
   };
 
   const answerClick = (e) => {
-    const modifiedTypes = questions[index].answers.map((answer) =>
+    const modifiedTypes = state.questions[state.index].answers.map((answer) =>
       answer === e.target.id ? "selected" : "test"
     );
     setTypes(modifiedTypes);
@@ -78,7 +75,7 @@ const Game = ({
     setTimeout(() => goToNextQuestion(e), 1500);
   };
 
-  if (loading)
+  if (state.loading)
     return (
       <StyledLoading>
         <p>Loading...</p>
@@ -87,33 +84,19 @@ const Game = ({
 
   return (
     <>
-      <Burger
-        pageWrapId="page-wrap"
-        outerContainerId="outer-container"
-        money={money}
-        index={index}
-        buildScoreTitle={buildScoreTitle}
-      />
+      <Burger pageWrapId="page-wrap" outerContainerId="outer-container" />
       <StyledContainer fixed maxWidth="xl" disableGutters>
         <StyledGame container>
           <StyledLeftGrid item xs={12} xl={8}>
-            {questions && (
+            {state.questions && (
               <QuestionAndAnswersBlock
-                question={questions[index].question}
-                answers={questions[index].answers}
                 types={types}
                 answerClick={answerClick}
               />
             )}
           </StyledLeftGrid>
           <StyledRightGrid item>
-            {money && (
-              <RewardList
-                money={money}
-                index={index}
-                buildScoreTitle={buildScoreTitle}
-              />
-            )}
+            <RewardList />
           </StyledRightGrid>
         </StyledGame>
       </StyledContainer>
