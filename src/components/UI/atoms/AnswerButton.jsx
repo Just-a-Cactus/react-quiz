@@ -2,9 +2,8 @@ import { Button } from "@mui/material";
 import styled from "styled-components";
 import theme from "../theme/theme";
 
-//...props - mui def props
-const AnswerButton = ({ letter, title, type, ...props }) => (
-  <StyledButton type={type} {...props} disableRipple>
+const AnswerButton = ({ letter, title, type, onClick, id }) => (
+  <StyledButton type={type} id={id} onClick={onClick} disableRipple>
     <svg viewBox="0 0 405 72" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M388 36L405 36" stroke="currentStroke" />
       <path d="M0 36L17 36" stroke="currentStroke" />

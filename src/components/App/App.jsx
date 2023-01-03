@@ -7,7 +7,6 @@ import Game from "../../pages/Game";
 import EndGame from "../../pages/EndGame";
 import styled from "styled-components";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { buildScoreTitle } from "../../functions/helpers";
 import ErrorBoundary from "../ErrorBoundary";
 import ROUTES from "../../routes";
 
@@ -24,10 +23,7 @@ function App() {
         >
           <Routes>
             <Route path={ROUTES.START} element={<Start />} />
-            <Route
-              path={ROUTES.GAME}
-              element={<Game buildScoreTitle={buildScoreTitle} />}
-            />
+            <Route path={ROUTES.GAME} element={<Game />} />
             <Route path={ROUTES.RESULTS} element={<EndGame />} />
             <Route path={ROUTES.NOT_FOUND} element={<Start />} />
           </Routes>

@@ -3,8 +3,10 @@ import { Container, Grid, Typography } from "@mui/material";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 const QuestionAndAnswersBlock = ({ answerClick, types }) => {
-  const state = useSelector((state) => state);
-  const question = state.questions[state.index]?.question;
+  const questionIndex = useSelector((state) => state.index);
+  const question = useSelector(
+    (state) => state.questions[questionIndex]?.question
+  );
 
   return (
     <>

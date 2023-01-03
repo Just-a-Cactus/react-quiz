@@ -4,14 +4,15 @@ import hand from ".././assets/img/hand.png";
 import Button from "../components/UI/atoms/Button";
 import theme from "../components/UI/theme/theme";
 import ROUTES from "../routes";
-import { useSelector } from "react-redux";
-import actions from "../redux/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
 import { buildScoreTitle } from "../functions/helpers";
+import { setQuestionIndex } from "../redux/actions/actions";
 
 const EndGame = () => {
-  const state = useSelector((state) => state);
-
-  const prise = state.index > 0 ? state.money[state.index - 1] : 0;
+  const dispatch = useDispatch();
+  const questionIndex = useSelector((state) => state.index);
+  const money = useSelector((state) => state.money);
+  const prise = questionIndex > 0 ? money[questionIndex - 1] : 0;
 
   return (
     <StyledContainer fixed maxWidth="xl" disableGutters>
@@ -31,7 +32,7 @@ const EndGame = () => {
             variant="contained"
             to={ROUTES.START}
             text="Try again"
-            onClick={() => actions.setIndex(0)}
+            onClick={() => dispatch(setQuestionIndex(0))}
           />
         </StyledRightGrid>
       </StyledStart>
@@ -49,7 +50,6 @@ const StyledContainer = styled(Container)`
 const StyledSubtitle = styled(Typography)`
   font-weight: 600;
   font-size: 18px;
-  //margin-bottom: 102px;
   text-align: center;
   color: ${theme.palette.labelButtons.defaultTextColor};
   opacity: 0.5;
