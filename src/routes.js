@@ -2,6 +2,6 @@ const ROUTES = {
   START: "/",
   GAME: "/game",
   RESULTS: "/results",
-  NOT_FOUND: "/",
+  NOT_FOUND: "*",
 };
 export default ROUTES;

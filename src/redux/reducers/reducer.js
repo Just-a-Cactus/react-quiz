@@ -1,10 +1,3 @@
-import {
-  setError,
-  setLoading,
-  setMoney,
-  setQuestions,
-} from "../actions/actions";
-
 const defaultState = {
   questions: null,
   money: null,
@@ -29,37 +22,5 @@ export const reducer = (state = defaultState, action) => {
       return { ...state, loading: action.payload };
     default:
       return state;
-  }
-};
-
-export const loadQuestionsThunk = () => async (dispatch) => {
-  dispatch(setLoading(true));
-
-  try {
-    await fetch("http://localhost:4000/questions")
-      .then((response) => response.json())
-      .then((resData) => {
-        dispatch(setQuestions(resData));
-      });
-  } catch (e) {
-    dispatch(setError(true));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
-
-export const loadMoneyThunk = () => async (dispatch) => {
-  dispatch(setLoading(true));
-
-  try {
-    await fetch("http://localhost:4000/money")
-      .then((response) => response.json())
-      .then((resData) => {
-        dispatch(setMoney(resData));
-      });
-  } catch (e) {
-    dispatch(setError(true));
-  } finally {
-    dispatch(setLoading(false));
   }
 };

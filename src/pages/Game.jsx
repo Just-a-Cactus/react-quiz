@@ -7,8 +7,11 @@ import Burger from "../components/UI/organism/Burger/Burger";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import ROUTES from "../routes";
-import { setQuestionIndex } from "../redux/actions/actions";
-import { loadMoneyThunk, loadQuestionsThunk } from "../redux/reducers/reducer";
+import {
+  loadMoneyThunk,
+  loadQuestionsThunk,
+  setQuestionIndex,
+} from "../redux/actions/actions";
 
 const Game = () => {
   const [types, setTypes] = useState([

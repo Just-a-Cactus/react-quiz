@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ErrorBoundary from "../ErrorBoundary";
 import ROUTES from "../../routes";
+import NotFound from "../../pages/NotFound";
 
 function App() {
   const location = useLocation();
@@ -25,7 +26,7 @@ function App() {
             <Route path={ROUTES.START} element={<Start />} />
             <Route path={ROUTES.GAME} element={<Game />} />
             <Route path={ROUTES.RESULTS} element={<EndGame />} />
-            <Route path={ROUTES.NOT_FOUND} element={<Start />} />
+            <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
           </Routes>
         </CustomBackground>
       </ErrorBoundary>
