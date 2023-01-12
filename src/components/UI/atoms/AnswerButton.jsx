@@ -2,9 +2,8 @@ import { Button } from "@mui/material";
 import styled from "styled-components";
 import theme from "../theme/theme";
 
-//...props - mui def props
-const AnswerButton = ({ letter, title, type, ...props }) => (
-  <StyledButton type={type} {...props} disableRipple>
+const AnswerButton = ({ letter, title, type, onClick, id }) => (
+  <StyledButton type={type} id={id} onClick={onClick} disableRipple>
     <svg viewBox="0 0 405 72" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M388 36L405 36" stroke="currentStroke" />
       <path d="M0 36L17 36" stroke="currentStroke" />
@@ -14,12 +13,25 @@ const AnswerButton = ({ letter, title, type, ...props }) => (
         stroke="currentStroke"
       />
     </svg>
-    <div className="innerText">
+    <InnerText className="innerText">
       <p>{letter}.</p>
       <p>{title}</p>
-    </div>
+    </InnerText>
   </StyledButton>
 );
+
+const InnerText = styled.div`
+  color: ${theme.palette.answerButtons.textColor};
+
+  position: absolute;
+  display: flex;
+
+  & :first-child {
+    color: ${theme.palette.answerButtons.letterColor};
+    font-weight: 600;
+    margin-right: 10px;
+  }
+`;
 
 const StyledButton = styled(Button)`
   background: none;
@@ -47,19 +59,6 @@ const StyledButton = styled(Button)`
   &:hover svg {
     fill: ${theme.palette.answerButtons.hoverBG};
     stroke: ${theme.palette.answerButtons.hoverBorder};
-  }
-
-  .innerText {
-    color: ${theme.palette.answerButtons.textColor};
-
-    position: absolute;
-    display: flex;
-
-    & :first-child {
-      color: ${theme.palette.answerButtons.letterColor};
-      font-weight: 600;
-      margin-right: 10px;
-    }
   }
 
   svg {

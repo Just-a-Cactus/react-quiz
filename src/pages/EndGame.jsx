@@ -3,8 +3,17 @@ import styled from "styled-components";
 import hand from ".././assets/img/hand.png";
 import Button from "../components/UI/atoms/Button";
 import theme from "../components/UI/theme/theme";
+import ROUTES from "../routes";
+import { useDispatch, useSelector } from "react-redux";
+import { buildScoreTitle } from "../functions/helpers";
+import { setQuestionIndex } from "../redux/actions/actions";
 
-const EndGame = ({ prise = 0, setIndex, setOnScreen, buildScoreTitle }) => {
+const EndGame = () => {
+  const dispatch = useDispatch();
+  const questionIndex = useSelector((state) => state.index);
+  const money = useSelector((state) => state.money);
+  const prise = questionIndex > 0 ? money[questionIndex - 1] : 0;
+
   return (
     <StyledContainer fixed maxWidth="xl" disableGutters>
       <StyledStart container>
@@ -21,13 +30,10 @@ const EndGame = ({ prise = 0, setIndex, setOnScreen, buildScoreTitle }) => {
           <Button
             disableRipple
             variant="contained"
-            onClick={() => {
-              setOnScreen("start");
-              setIndex(0);
-            }}
-          >
-            Try again
-          </Button>
+            to={ROUTES.START}
+            text="Try again"
+            onClick={() => dispatch(setQuestionIndex(0))}
+          />
         </StyledRightGrid>
       </StyledStart>
     </StyledContainer>
@@ -44,7 +50,6 @@ const StyledContainer = styled(Container)`
 const StyledSubtitle = styled(Typography)`
   font-weight: 600;
   font-size: 18px;
-  //margin-bottom: 102px;
   text-align: center;
   color: ${theme.palette.labelButtons.defaultTextColor};
   opacity: 0.5;

@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import styled from "styled-components";
 import theme from "../theme/theme";
+import { buildScoreTitle } from "../../../functions/helpers";
 
-const LabelButton = ({ title, type, ...props }) => (
-  <StyledButton type={type} {...props}>
+const LabelButton = ({ title, type }) => (
+  <StyledButton>
     <svg viewBox="0 0 376 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M69 20H0" stroke="currentStroke" />
       <path d="M376 20H307" stroke="currentStroke" />
@@ -13,11 +14,26 @@ const LabelButton = ({ title, type, ...props }) => (
         stroke="currentStroke"
       />
     </svg>
-    <div className="innerText">
-      <p>{title}</p>
-    </div>
+    <InnerText type={type}>
+      <p>{buildScoreTitle(title)}</p>
+    </InnerText>
   </StyledButton>
 );
+
+const InnerText = styled.div`
+  position: absolute;
+
+  color: ${(props) => {
+    switch (props.type?.toLowerCase()) {
+      case "active":
+        return theme.palette.labelButtons.active;
+      case "disabled":
+        return theme.palette.labelButtons.inactive;
+      default:
+        return theme.palette.labelButtons.defaultTextColor;
+    }
+  }};
+`;
 
 const StyledButton = styled(Button)`
   width: 100%;
@@ -31,21 +47,6 @@ const StyledButton = styled(Button)`
     @media print, screen and (min-width: 1440px) {
       height: 40px;
     }
-  }
-
-  .innerText {
-    position: absolute;
-
-    color: ${(props) => {
-      switch (props.type?.toLowerCase()) {
-        case "active":
-          return theme.palette.labelButtons.active;
-        case "disabled":
-          return theme.palette.labelButtons.inactive;
-        default:
-          return theme.palette.labelButtons.defaultTextColor;
-      }
-    }};
   }
 
   svg {

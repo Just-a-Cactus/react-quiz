@@ -2,8 +2,9 @@ import { Container, Grid, Typography } from "@mui/material";
 import styled from "styled-components";
 import hand from ".././assets/img/hand.png";
 import Button from "../components/UI/atoms/Button";
+import ROUTES from "../routes";
 
-const Start = ({ setOnScreen }) => {
+const Start = () => {
   return (
     <StyledContainer fixed maxWidth="xl" disableGutters>
       <StyledStart container>
@@ -19,10 +20,9 @@ const Start = ({ setOnScreen }) => {
           <Button
             disableRipple
             variant="contained"
-            onClick={() => setOnScreen("game")}
-          >
-            Start
-          </Button>
+            to={ROUTES.GAME}
+            text="Start"
+          />
         </StyledRightGrid>
       </StyledStart>
     </StyledContainer>
