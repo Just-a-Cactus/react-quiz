@@ -1,18 +1,20 @@
 import AnswersBlock from "../molecules/AnswersBlock";
 import { Container, Grid, Typography } from "@mui/material";
 import styled from "styled-components";
-const QuestionAndAnswersBlock = ({ answerClick, question, answers, types }) => {
+import { useSelector } from "react-redux";
+const QuestionAndAnswersBlock = ({ answerClick, types }) => {
+  const questionIndex = useSelector((state) => state.index);
+  const question = useSelector(
+    (state) => state.questions[questionIndex]?.question
+  );
+
   return (
     <>
       <StyledTypographyWrapper item xs={12} xl={9}>
         <StyledTypography component="h1">{question}</StyledTypography>
       </StyledTypographyWrapper>
       <Container maxWidth="xs*2" disableGutters>
-        <AnswersBlock
-          answerClick={answerClick}
-          answers={answers}
-          types={types}
-        />
+        <AnswersBlock answerClick={answerClick} types={types} />
       </Container>
     </>
   );

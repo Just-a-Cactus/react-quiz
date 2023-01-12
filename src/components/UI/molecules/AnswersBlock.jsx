@@ -1,9 +1,14 @@
 import styled from "styled-components";
 import { Grid } from "@mui/material";
 import AnswerButton from "../atoms/AnswerButton";
+import { useSelector } from "react-redux";
 
-//...props - mui def props
-const AnswersBlock = ({ answerClick, answers, types }) => {
+const AnswersBlock = ({ answerClick, types }) => {
+  const questionIndex = useSelector((state) => state.index);
+  const answers = useSelector(
+    (state) => state.questions[questionIndex]?.answers
+  );
+
   const letters = ["A", "B", "C", "D"];
   return (
     <StyledGrid container rowSpacing={5}>

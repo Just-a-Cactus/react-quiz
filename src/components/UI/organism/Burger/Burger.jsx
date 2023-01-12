@@ -4,16 +4,12 @@ import RewardList from "../../molecules/RewardList";
 
 import "./index.css";
 
-const Burger = ({ money, index, buildScoreTitle }) => (
-  <Menu width="100%">
-    {money && (
-      <RewardList
-        money={money}
-        index={index}
-        buildScoreTitle={buildScoreTitle}
-      />
-    )}
-  </Menu>
-);
+const Burger = () => {
+  return (
+    <Menu width="100%">
+      <RewardList />
+    </Menu>
+  );
+};
 
 export default Burger;

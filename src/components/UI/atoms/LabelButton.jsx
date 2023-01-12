@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import styled from "styled-components";
 import theme from "../theme/theme";
+import { buildScoreTitle } from "../../../functions/helpers";
 
-const LabelButton = ({ title, type, ...props }) => (
-  <StyledButton {...props}>
+const LabelButton = ({ title, type }) => (
+  <StyledButton>
     <svg viewBox="0 0 376 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M69 20H0" stroke="currentStroke" />
       <path d="M376 20H307" stroke="currentStroke" />
@@ -14,7 +15,7 @@ const LabelButton = ({ title, type, ...props }) => (
       />
     </svg>
     <InnerText type={type}>
-      <p>{title}</p>
+      <p>{buildScoreTitle(title)}</p>
     </InnerText>
   </StyledButton>
 );

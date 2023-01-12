@@ -5,18 +5,15 @@ import QuestionAndAnswersBlock from "../components/UI/organism/QuestionAndAnswer
 import { useEffect, useState } from "react";
 import Burger from "../components/UI/organism/Burger/Burger";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ROUTES from "../routes";
+import {
+  loadMoneyThunk,
+  loadQuestionsThunk,
+  setQuestionIndex,
+} from "../redux/actions/actions";
 
-const Game = ({
-  buildScoreTitle,
-  questions,
-  money,
-  index,
-  setIndex,
-  setQuestions,
-  setMoney,
-  setLoading,
-  loading,
-}) => {
+const Game = () => {
   const [types, setTypes] = useState([
     "inactive",
     "inactive",
@@ -24,53 +21,44 @@ const Game = ({
     "inactive",
   ]);
 
-  async function loadQuestions() {
-    setLoading(true);
-    await fetch("http://localhost:4000/questions")
-      .then((response) => response.json())
-      .then((resData) => {
-        setQuestions(resData);
-        setLoading(false);
-      });
-  }
-
-  async function loadMoney() {
-    setLoading(true);
-    await fetch("http://localhost:4000/money")
-      .then((response) => response.json())
-      .then((resData) => {
-        setMoney(resData);
-        setLoading(false);
-      });
-  }
+  const questionIndex = useSelector((state) => state.index);
+  const questions = useSelector((state) => state.questions);
+  const loading = useSelector((state) => state.loading);
+  const error = useSelector((state) => state.error);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    loadQuestions();
-    loadMoney();
+    dispatch(loadMoneyThunk());
+    dispatch(loadQuestionsThunk());
   }, []);
+
+  useEffect(() => {
+    questionIndex === questions?.length && navigate(ROUTES.RESULTS);
+  }, [questionIndex]);
+
+  const navigate = useNavigate();
 
   const colorizeCorrectAnswer = () => {
     const newType = types.map((el, key) =>
-      questions[index].correctAnswer === questions[index].answers[key]
+      questions[questionIndex].correctAnswer ===
+      questions[questionIndex].answers[key]
         ? "correct"
         : "wrong"
     );
     setTypes(newType);
   };
-  const navigate = useNavigate();
 
   const goToNextQuestion = (e) => {
     setTypes(["inactive", "inactive", "inactive", "inactive"]);
-    if (e.target.id === questions[index].correctAnswer) {
-      setIndex(index + 1);
-      if (index === questions.length - 1) navigate("/results");
+    if (e.target.id === questions[questionIndex].correctAnswer) {
+      dispatch(setQuestionIndex(questionIndex + 1));
     } else {
-      navigate("/results");
+      navigate(ROUTES.RESULTS);
     }
   };
 
   const answerClick = (e) => {
-    const modifiedTypes = questions[index].answers.map((answer) =>
+    const modifiedTypes = questions[questionIndex].answers.map((answer) =>
       answer === e.target.id ? "selected" : "test"
     );
     setTypes(modifiedTypes);
@@ -85,35 +73,28 @@ const Game = ({
       </StyledLoading>
     );
 
+  if (error)
+    return (
+      <StyledLoading>
+        <p>Something goes wrong...</p>
+      </StyledLoading>
+    );
+
   return (
     <>
-      <Burger
-        pageWrapId="page-wrap"
-        outerContainerId="outer-container"
-        money={money}
-        index={index}
-        buildScoreTitle={buildScoreTitle}
-      />
+      <Burger pageWrapId="page-wrap" outerContainerId="outer-container" />
       <StyledContainer fixed maxWidth="xl" disableGutters>
         <StyledGame container>
           <StyledLeftGrid item xs={12} xl={8}>
             {questions && (
               <QuestionAndAnswersBlock
-                question={questions[index].question}
-                answers={questions[index].answers}
                 types={types}
                 answerClick={answerClick}
               />
             )}
           </StyledLeftGrid>
           <StyledRightGrid item>
-            {money && (
-              <RewardList
-                money={money}
-                index={index}
-                buildScoreTitle={buildScoreTitle}
-              />
-            )}
+            <RewardList />
           </StyledRightGrid>
         </StyledGame>
       </StyledContainer>
